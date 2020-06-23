@@ -38,21 +38,23 @@ def get_key(val):
 
     return "key doesn't exist"
 
-def l_to_num(letter):
-    return ord(letter.lower()) - 97
+# def l_to_num(letter):
+#     return ord(letter.lower()) - 97
 
 output = ""
-i = 0
+key_length = len(key)
 
-for letter in message:
-    output += get_key((l_to_num(letter) + l_to_num(key[i])) % 27)
-    i += 1
-    try:
-        a = key[i]
-    except:
-        i = 0
+for letter in range(len(message)):
+    output += get_key((letter_to_number_dictionary[message[letter].lower()] + letter_to_number_dictionary[key[letter % key_length].lower()]) % 27)
 
 print(output)
+
+msg = ""
+
+for i in range(len(output)):
+    msg += get_key((letter_to_number_dictionary[output[i].lower()] - (letter_to_number_dictionary[key[i % key_length].lower()])) % 27)
+
+print(msg)
 
 
 

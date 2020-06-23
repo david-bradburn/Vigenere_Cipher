@@ -1,6 +1,6 @@
-key = "key"
+key = "secret"
 
-message = "Hello World"
+message = "vUy4n9AzPgS"
 
 letter_to_number_dictionary = {"a": 0,
                                "b": 1,
@@ -27,8 +27,7 @@ letter_to_number_dictionary = {"a": 0,
                                "w": 22,
                                "x": 23,
                                "y": 24,
-                               "z": 25,
-                               " ": 26} # Could use ord()
+                               "z": 25} # Could use ord()
 
 
 def get_key(val):
@@ -45,14 +44,22 @@ output = ""
 key_length = len(key)
 
 for letter in range(len(message)):
-    output += get_key((letter_to_number_dictionary[message[letter].lower()] + letter_to_number_dictionary[key[letter % key_length].lower()]) % 27)
+    try:
+        output += get_key((letter_to_number_dictionary[message[letter].lower()] + letter_to_number_dictionary[key[letter % key_length].lower()]) % 26)
+    except:
+        print(message[letter])
+        output += str(message[letter])
 
 print(output)
 
 msg = ""
 
 for i in range(len(output)):
-    msg += get_key((letter_to_number_dictionary[output[i].lower()] - (letter_to_number_dictionary[key[i % key_length].lower()])) % 27)
+    try:
+        msg += get_key((letter_to_number_dictionary[output[i].lower()] - (letter_to_number_dictionary[key[i % key_length].lower()])) % 26)
+    except:
+        msg += output[i]
+        print(output[i])
 
 print(msg)
 
